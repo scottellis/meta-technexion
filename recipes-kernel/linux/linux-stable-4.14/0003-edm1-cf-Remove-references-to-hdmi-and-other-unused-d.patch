@@ -1,0 +1,135 @@
+From fa343dd0c77cbca93fb6b766b5c9131922405a7e Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Fri, 26 Jan 2018 09:52:05 -0500
+Subject: [PATCH 3/3] edm1-cf: Remove references to hdmi and other unused
+ displays
+
+---
+ arch/arm/boot/dts/imx6dl-edm1-cf_fairy.dts |  3 +--
+ arch/arm/boot/dts/imx6q-edm1-cf_fairy.dts  |  3 +--
+ arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi     | 18 ++++++++++--------
+ 3 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx6dl-edm1-cf_fairy.dts b/arch/arm/boot/dts/imx6dl-edm1-cf_fairy.dts
+index b3912fe..b44d919 100644
+--- a/arch/arm/boot/dts/imx6dl-edm1-cf_fairy.dts
++++ b/arch/arm/boot/dts/imx6dl-edm1-cf_fairy.dts
+@@ -39,12 +39,11 @@
+ &mxcfb1 {
+ 	status = "okay";
+ };
+-
++#if 0
+ &mxcfb2 {
+ 	status = "okay";
+ };
+ 
+-#if 0
+ &mxcfb3 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm/boot/dts/imx6q-edm1-cf_fairy.dts b/arch/arm/boot/dts/imx6q-edm1-cf_fairy.dts
+index 95c57d2..b2b0b7d 100644
+--- a/arch/arm/boot/dts/imx6q-edm1-cf_fairy.dts
++++ b/arch/arm/boot/dts/imx6q-edm1-cf_fairy.dts
+@@ -42,12 +42,11 @@
+ &mxcfb1 {
+ 	status = "okay";
+ };
+-
++#if 0
+ &mxcfb2 {
+ 	status = "okay";
+ };
+ 
+-#if 0
+ &mxcfb3 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi b/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi
+index 9f0596c..e0f0433 100644
+--- a/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi
++++ b/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi
+@@ -46,9 +46,11 @@
+ / {
+ 	aliases {
+ 		mxcfb0 = &mxcfb1;
++/*
+ 		mxcfb1 = &mxcfb2;
+ 		mxcfb2 = &mxcfb3;
+ 		mxcfb3 = &mxcfb4;
++*/
+ 	};
+ 
+ 	chosen {
+@@ -151,14 +153,14 @@
+ 		spdif-controller = <&spdif>;
+ 		spdif-out;
+ 	};
+-
++/*
+ 	sound-hdmi {
+ 		compatible = "fsl,imx6q-audio-hdmi",
+ 			     "fsl,imx-audio-hdmi";
+ 		model = "imx-audio-hdmi";
+ 		hdmi-controller = <&hdmi_audio>;
+ 	};
+-
++*/
+ 	mxcfb1: fb@0 {
+ 		compatible = "fsl,mxc_sdc_fb";
+ 		disp_dev = "ldb";
+@@ -168,7 +170,7 @@
+ 		late_init = <0>;
+ 		status = "disabled";
+ 	};
+-
++/*
+ 	mxcfb2: fb@1 {
+ 		compatible = "fsl,mxc_sdc_fb";
+ 		disp_dev = "hdmi";
+@@ -200,7 +202,7 @@
+ 		late_init = <0>;
+ 		status = "disabled";
+ 	};
+-
++*/
+ 	lcd@0 {
+ 		compatible = "fsl,lcd";
+ 		ipu_id = <0>;
+@@ -251,12 +253,12 @@
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_i2c1>;
+ 	status = "okay";
+-
++/*
+ 	hdmi: edid@50 {
+ 		compatible = "fsl,imx6-hdmi-i2c";
+ 		reg = <0x50>;
+ 	};
+-
++*/
+ };
+ 
+ &i2c2 {
+@@ -596,7 +598,7 @@
+ 	phy-reset-gpios = <&gpio3 29 0>;
+ 	status = "okay";
+ };
+-
++/*
+ &hdmi_audio {
+ 	status = "okay";
+ };
+@@ -612,7 +614,7 @@
+ 	fsl,phy_reg_cksymtx = <0x800d>;
+ 	status = "okay";
+ };
+-
++*/
+ &can1 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_flexcan1>;
+-- 
+2.7.4
+

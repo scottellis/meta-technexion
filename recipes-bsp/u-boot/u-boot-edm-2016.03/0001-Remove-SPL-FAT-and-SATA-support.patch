@@ -1,0 +1,25 @@
+From 3b40de499b670b97faadcbac6edb25ade1cf9d3d Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Thu, 25 Jan 2018 16:04:47 -0500
+Subject: [PATCH] Remove SPL FAT and SATA support
+
+---
+ include/configs/edm-cf-imx6.h | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/include/configs/edm-cf-imx6.h b/include/configs/edm-cf-imx6.h
+index 93d76d5..306e371 100644
+--- a/include/configs/edm-cf-imx6.h
++++ b/include/configs/edm-cf-imx6.h
+@@ -16,8 +16,6 @@
+ 
+ #define CONFIG_SPL_LIBCOMMON_SUPPORT
+ #define CONFIG_SPL_MMC_SUPPORT
+-#define CONFIG_SPL_SATA_SUPPORT
+-#define CONFIG_SPL_FAT_SUPPORT
+ #include "imx6_spl.h"
+ 
+ #ifdef CONFIG_CMD_SATA
+-- 
+2.7.4
+
