@@ -28,4 +28,5 @@ SRC_URI = " \
     file://0001-Initial-import-of-technexion-4.1-dts-files.patch \
     file://0002-Search-for-tnmacro.h-in-local-dir.patch \
     file://0003-edm1-cf-Remove-references-to-hdmi-and-other-unused-d.patch \
+    file://0004-edm1-cf_fairy-Convert-dts-to-work-with-older-radios.patch \
 "

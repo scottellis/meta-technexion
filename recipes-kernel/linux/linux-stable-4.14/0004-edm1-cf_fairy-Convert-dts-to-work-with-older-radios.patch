@@ -1,0 +1,128 @@
+From 10a93034695ab3a98cbb1bec1882b56cae7314d8 Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Thu, 1 Feb 2018 14:08:44 -0500
+Subject: [PATCH 4/4] edm1-cf_fairy: Convert dts to work with older radios
+
+---
+ arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi | 51 +++++++++++++++++-----------------
+ 1 file changed, 26 insertions(+), 25 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi b/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi
+index e0f0433..7d72820 100644
+--- a/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi
++++ b/arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi
+@@ -56,14 +56,14 @@
+ 	chosen {
+ 		stdout-path = &uart1;
+ 	};
+-
++/*
+ 	bcmdhd_wlan_0: bcmdhd_wlan@0 {
+ 		compatible = "android,bcmdhd_wlan";
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_wifi_ctrl>;
+ 		wlreg_on-supply = <&wlreg_on>;
+ 	};
+-
++*/
+ 	bt_rfkill {
+ 		compatible = "net,rfkill-bcm43xx";
+ 		name = "bt_rfkill";
+@@ -114,7 +114,7 @@
+ 			regulator-max-microvolt = <5000000>;
+ 			gpio = <&gpio3 22 0>;
+ 		};
+-
++/*
+ 		wlreg_on: fixedregulator@100 {
+ 			compatible = "regulator-fixed";
+ 			regulator-min-microvolt = <5000000>;
+@@ -123,8 +123,9 @@
+ 			gpio = <&gpio1 26 GPIO_ACTIVE_HIGH>;
+ 			enable-active-high;
+ 		};
++*/
+ 	};
+-
++/*
+ 	gpio-edm {
+ 		compatible = "gpio-edm";
+ 
+@@ -146,7 +147,7 @@
+ 			dir   = "in";
+ 		};
+ 	};
+-
++*/
+ 	sound-spdif {
+ 		compatible = "fsl,imx-audio-spdif";
+ 		model = "imx-spdif";
+@@ -300,15 +301,20 @@
+ 
+ 		pinctrl_hog_1: hoggrp-1 {
+ 			fsl,pins = <
+-				MX6QDL_PAD_GPIO_0__CCM_CLKO1     	0x130b0
+-				MX6QDL_PAD_EIM_D22__USB_OTG_PWR		0x80000000	/* USB Power Enable */
+-				MX6QDL_PAD_GPIO_2__GPIO1_IO02		0x80000000	/* USDHC1 CD */
+-				MX6QDL_PAD_EIM_DA9__GPIO3_IO09		0x80000000	/* uSDHC3 CD */
+-				MX6QDL_PAD_GPIO_0__CCM_CLKO1		0x000b0		/* SGTL5000 sys_mclk */
+-				MX6QDL_PAD_GPIO_6__GPIO1_IO06		0x0b0b0		/* ov5640 mipi powerdown */
+-				MX6QDL_PAD_GPIO_8__GPIO1_IO08		0x0b0b0		/* ov5640 mipi reset */
+-				MX6QDL_PAD_GPIO_3__CCM_CLKO2		0x000b0		/* ov5640 mclk */
+-				MX6QDL_PAD_EIM_D29__GPIO3_IO29   	0x80000000
++				MX6QDL_PAD_GPIO_0__CCM_CLKO1            0x130b0
++				MX6QDL_PAD_EIM_D22__USB_OTG_PWR         0x80000000      /* USB Power Enable */
++				MX6QDL_PAD_GPIO_2__GPIO1_IO02           0x80000000      /* USDHC1 CD */
++				MX6QDL_PAD_EIM_DA9__GPIO3_IO09          0x80000000      /* uSDHC3 CD */
++				MX6QDL_PAD_GPIO_0__CCM_CLKO1            0x000b0         /* SGTL5000 sys_mclk */
++				MX6QDL_PAD_GPIO_6__GPIO1_IO06           0x0b0b0         /* ov5640 mipi powerdown */
++				MX6QDL_PAD_GPIO_8__GPIO1_IO08           0x0b0b0         /* ov5640 mipi reset */
++				MX6QDL_PAD_GPIO_3__CCM_CLKO2            0x000b0         /* ov5640 mclk */
++				MX6QDL_PAD_EIM_D29__GPIO3_IO29          0x80000000
++				MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31       0x0f0b0         /* WL_REF_ON */
++				MX6QDL_PAD_EIM_A25__GPIO5_IO02          0x0f0b0         /* WL_RST_N */
++				MX6QDL_PAD_ENET_RXD1__GPIO1_IO26        0x000b0         /* WL_REG_ON */
++				MX6QDL_PAD_ENET_TXD1__GPIO1_IO29        0x80000000      /* WL_HOST_WAKE */
++				MX6QDL_PAD_ENET_TXD0__GPIO1_IO30        0x80000000      /* WL_WAKE */
+ 			>;
+ 		};
+ 
+@@ -351,15 +357,16 @@
+ 			>;
+ 		};
+ 
++/*
+ 		pinctrl_wifi_ctrl: wifi_ctrlgrp {
+ 			fsl,pins = <
+-				MX6QDL_PAD_CSI0_DAT14__GPIO6_IO00 0x000b0			/* wifi-reset */
+-				MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31 0x000b0			/* wifi-on */
+-				MX6QDL_PAD_ENET_RXD1__GPIO1_IO26  0x000b0			/* wifi-reg-on */
+-				MX6QDL_PAD_ENET_TXD1__GPIO1_IO29  0x80000000		/* wifi-host-wake */
++				MX6QDL_PAD_CSI0_DAT14__GPIO6_IO00 0x000b0			* wifi-reset *
++				MX6QDL_PAD_CSI0_DAT13__GPIO5_IO31 0x000b0			* wifi-on *
++				MX6QDL_PAD_ENET_RXD1__GPIO1_IO26  0x000b0			* wifi-reg-on *
++				MX6QDL_PAD_ENET_TXD1__GPIO1_IO29  0x80000000		* wifi-host-wake *
+ 			>;
+ 		};
+-
++*/
+ 		pinctrl_bt_ctrl: bt_ctrlgrp {
+ 			fsl,pins = <
+ 				MX6QDL_PAD_CSI0_VSYNC__GPIO5_IO21	0x000b0		/* bluetooth-reg-on */
+@@ -739,13 +746,7 @@
+ &usdhc2 {  /* Broadcom Wifi/BT  */
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_usdhc2>;
+-	bus-width = <4>;
+-	no-1-8-v;
+-	keep-power-in-suspend;
+ 	non-removable;
+-	cd-post;
+-	pm-ignore-notify;
+-	wifi-host;
+ 	status = "okay";
+ };
+ 
+-- 
+2.7.4
+
