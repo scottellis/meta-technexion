@@ -1,4 +1,4 @@
-From 9ac7f91da47197a2e689204e1022ebfc550bb03c Mon Sep 17 00:00:00 2001
+From 2805f2cde454b87cc01494687d95449e6624f685 Mon Sep 17 00:00:00 2001
 From: Scott Ellis <scott@jumpnowtek.com>
 Date: Fri, 26 Jan 2018 15:43:42 -0500
 Subject: [PATCH] Integrate EDM-CF-IMX6 board files
@@ -6,16 +6,17 @@ Subject: [PATCH] Integrate EDM-CF-IMX6 board files
 ---
  arch/arm/include/asm/arch-mx6/imx-regs.h       |   3 +
  arch/arm/mach-imx/mx6/Kconfig                  |   6 +
+ arch/arm/mach-imx/mx6/soc.c                    |   2 +-
  board/technexion/edm-cf-imx6/Kconfig           |  16 +
  board/technexion/edm-cf-imx6/MAINTAINERS       |   6 +
  board/technexion/edm-cf-imx6/Makefile          |   7 +
  board/technexion/edm-cf-imx6/README            |  26 +
- board/technexion/edm-cf-imx6/edm-cf-imx6.c     | 700 +++++++++++++++++++++++++
+ board/technexion/edm-cf-imx6/edm-cf-imx6.c     | 714 +++++++++++++++++++++++++
  board/technexion/edm-cf-imx6/edm-cf-imx6_spl.c | 566 ++++++++++++++++++++
  board/technexion/edm-cf-imx6/uEnv.txt          |   5 +
  configs/edm-cf-imx6_defconfig                  |  38 ++
  include/configs/edm-cf-imx6.h                  | 168 ++++++
- 11 files changed, 1541 insertions(+)
+ 12 files changed, 1556 insertions(+), 1 deletion(-)
  create mode 100644 board/technexion/edm-cf-imx6/Kconfig
  create mode 100644 board/technexion/edm-cf-imx6/MAINTAINERS
  create mode 100644 board/technexion/edm-cf-imx6/Makefile
@@ -64,6 +65,19 @@ index 540f2b2..9d2ba3a 100644
  source "board/technexion/pico-imx6ul/Kconfig"
  source "board/tbs/tbs2910/Kconfig"
  source "board/tqc/tqma6/Kconfig"
+diff --git a/arch/arm/mach-imx/mx6/soc.c b/arch/arm/mach-imx/mx6/soc.c
+index b724668..c6b7a94 100644
+--- a/arch/arm/mach-imx/mx6/soc.c
++++ b/arch/arm/mach-imx/mx6/soc.c
+@@ -451,7 +451,7 @@ __weak int board_mmc_get_env_dev(int devno)
+ 	return CONFIG_SYS_MMC_ENV_DEV;
+ }
+ 
+-static int mmc_get_boot_dev(void)
++int mmc_get_boot_dev(void)
+ {
+ 	struct src *src_regs = (struct src *)SRC_BASE_ADDR;
+ 	u32 soc_sbmr = readl(&src_regs->sbmr1);
 diff --git a/board/technexion/edm-cf-imx6/Kconfig b/board/technexion/edm-cf-imx6/Kconfig
 new file mode 100644
 index 0000000..06b45a0
@@ -145,10 +159,10 @@ index 0000000..8cbea99
 +- Power up the board and U-boot messages will appear in the serial console.
 diff --git a/board/technexion/edm-cf-imx6/edm-cf-imx6.c b/board/technexion/edm-cf-imx6/edm-cf-imx6.c
 new file mode 100755
-index 0000000..a7618f8
+index 0000000..b2f5997
 --- /dev/null
 +++ b/board/technexion/edm-cf-imx6/edm-cf-imx6.c
-@@ -0,0 +1,700 @@
+@@ -0,0 +1,714 @@
 +/*
 + * Copyright (C) 2015 Technexion Ltd.
 + *
@@ -342,38 +356,52 @@ index 0000000..a7618f8
 +	return ret;
 +}
 +
++/* defined in arch/arm/mach-imx/mx6/soc.c */
++int mmc_get_boot_dev(void);
++
 +int board_mmc_init(bd_t *bis)
 +{
 +	int ret;
 +	u32 index = 0;
 +
 +	/*
-+	 * Following map is done: NOT TRUE ANYMORE
-+	 * (U-Boot device node)    (Physical Port)
-+	 * mmc0                    SOM MicroSD
-+	 * mmc1                    Carrier board MicroSD
++	 * Following map is done:
++	 * (USDHC)>-----(Physical Port)
++	 * usdhc3>------SOM MicroSD/MMC
++	 * usdhc1>------Carrier board MicroSD
++	 * Always set boot USDHC as mmc0
 +	 */
-+	for (index = 0; index < CONFIG_SYS_FSL_USDHC_NUM; ++index) {
-+		switch (index) {
-+		case 0:
-+			SETUP_IOMUX_PADS(usdhc1_pads);
-+			usdhc_cfg[0].sdhc_clk = mxc_get_clock(MXC_ESDHC_CLK);
-+			usdhc_cfg[0].max_bus_width = 4;
-+			gpio_direction_input(USDHC1_CD_GPIO);
-+			break;
-+		case 1:
-+			SETUP_IOMUX_PADS(usdhc3_pads);
-+			usdhc_cfg[1].sdhc_clk = mxc_get_clock(MXC_ESDHC3_CLK);
-+			usdhc_cfg[1].max_bus_width = 4;
-+			gpio_direction_input(USDHC3_CD_GPIO);
-+			break;
-+		default:
-+			printf("Warning: you configured more USDHC controllers"
-+				"(%d) then supported by the board (%d)\n",
-+				index + 1, CONFIG_SYS_FSL_USDHC_NUM);
-+			return -EINVAL;
-+		}
 +
++	SETUP_IOMUX_PADS(usdhc3_pads);
++	gpio_direction_input(USDHC3_CD_GPIO);
++
++	SETUP_IOMUX_PADS(usdhc1_pads);
++	gpio_direction_input(USDHC1_CD_GPIO);
++
++	index = mmc_get_boot_dev();
++	printf("mmcbootdev: %d\n", index);
++
++	switch (index) {
++	case 0:
++		usdhc_cfg[0].esdhc_base = USDHC1_BASE_ADDR;
++		usdhc_cfg[0].sdhc_clk = mxc_get_clock(MXC_ESDHC_CLK);
++		usdhc_cfg[0].max_bus_width = 4;
++		usdhc_cfg[1].esdhc_base = USDHC3_BASE_ADDR;
++		usdhc_cfg[1].sdhc_clk = mxc_get_clock(MXC_ESDHC3_CLK);
++		usdhc_cfg[1].max_bus_width = 4;
++		break;
++	case 2:
++	default:
++		usdhc_cfg[0].esdhc_base = USDHC3_BASE_ADDR;
++		usdhc_cfg[0].sdhc_clk = mxc_get_clock(MXC_ESDHC3_CLK);
++		usdhc_cfg[0].max_bus_width = 4;
++		usdhc_cfg[1].esdhc_base = USDHC1_BASE_ADDR;
++		usdhc_cfg[1].sdhc_clk = mxc_get_clock(MXC_ESDHC_CLK);
++		usdhc_cfg[1].max_bus_width = 4;
++		break;
++	}
++
++	for (index = 0; index < CONFIG_SYS_FSL_USDHC_NUM; ++index) {
 +		ret = fsl_esdhc_initialize(bis, &usdhc_cfg[index]);
 +		if (ret)
 +			return ret;
