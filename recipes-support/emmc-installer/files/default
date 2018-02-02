@@ -1,0 +1,6 @@
+# Default location of binaries to install onto the eMMC when the
+# emmc-installer is run from init
+DEFAULT_SRCDIR=/home/root/emmc
+# the partitioning script to use: emmc_mk1part.sh
+# Set to emmc_mk4parts.sh if using Mender 
+DEFAULT_PART_SCRIPT=/usr/bin/emmc_mk1part.sh

@@ -1,0 +1,55 @@
+#!/bin/sh
+
+[ "${1}" = "start" ] || exit 0
+
+MACHINE=edm1-cf-imx6
+
+[ -f /etc/default/emmc-installer ] && . /etc/default/emmc-installer
+
+if [ -z "${SRCDIR}" ]; then
+    if [ -z "${DEFAULT_SRCDIR}" ]; then
+        echo "SRCDIR environment variable not set"
+        exit 1
+    fi
+
+    SRCDIR="${DEFAULT_SRCDIR}"
+fi
+
+if [ -z "${PART_SCRIPT}" ]; then
+    if [ -z "${DEFAULT_PART_SCRIPT}" ]; then
+        echo "PART_SCRIPT environment variable not set"
+        exit 1
+    fi
+
+    PART_SCRIPT="${DEFAULT_PART_SCRIPT}"
+fi
+
+if [ ! -d "${SRCDIR}" ]; then
+    echo "Missing emmc installer source directory"
+    exit 1
+fi
+
+if [ ! -x "${PART_SCRIPT}" ]; then
+    echo "Partitioning script not found: ${PART_SCRIPT}"
+    exit 1
+fi
+
+if [ ! -x /usr/bin/emmc_install_wrapper.sh ]; then
+    echo "System is missing /usr/bin/emmc_install_wrapper.sh script"
+    exit 1
+fi
+
+cd ${SRCDIR}
+
+ROOTFS=`ls *-${MACHINE}.tar.xz 2>/dev/null`
+
+if [ -z "${ROOTFS}" ]; then
+    echo "Failed to find a rootfs image";
+    exit 1
+fi
+
+export SRCDIR
+export PART_SCRIPT
+emmc_install_wrapper.sh ${ROOTFS} ${HOSTNAME} 
+
+exit 0
