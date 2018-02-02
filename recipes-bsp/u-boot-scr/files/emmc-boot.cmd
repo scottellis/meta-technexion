@@ -1,4 +1,4 @@
-setenv bootpart 1:1
+setenv bootpart 0:1
 setenv bootdir /boot
 setenv mmcroot /dev/mmcblk2p1 ro
 setenv mmcrootfstype ext4 rootwait
