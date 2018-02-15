@@ -1,0 +1,26 @@
+From f5a9fa388cd282c5857309f12c0f7a9db794a6ca Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Thu, 15 Feb 2018 16:23:42 -0500
+Subject: [PATCH 3/3] Add display to bootargs for mender testing
+
+---
+ include/configs/edm-cf-imx6.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/include/configs/edm-cf-imx6.h b/include/configs/edm-cf-imx6.h
+index 3674196..38daec2a 100644
+--- a/include/configs/edm-cf-imx6.h
++++ b/include/configs/edm-cf-imx6.h
+@@ -111,7 +111,8 @@
+ #define CONFIG_EXTRA_ENV_SETTINGS \
+ 	"console=ttymxc0,115200\0" \
+ 	"splashpos=m,m\0" \
+-	"bootargs=console=${console} rootfstype=ext4 rootwait\0" \
++	"display=video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24 fbmem=28M\0" \
++	"bootargs=console=${console} ${display} rootfstype=ext4 rootwait\0" \
+ 	"fdtfile=undefined\0" \
+ 	"fdt_high=0xffffffff\0" \
+ 	"fdt_addr_r=0x18000000\0" \
+-- 
+2.7.4
+
