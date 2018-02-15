@@ -22,7 +22,9 @@ WIFI_SUPPORT = " \
     bcm4329-nvram-config \
     bcm4330-nvram-config \
     crda \
+    firmware-bcmdhd \
     iw \
+    linux-firmware-bcm43430 \
     rfkill \
     wireless-tools \
     wpa-supplicant \
