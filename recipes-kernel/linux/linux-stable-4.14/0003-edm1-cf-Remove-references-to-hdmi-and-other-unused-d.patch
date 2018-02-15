@@ -1,7 +1,7 @@
-From fa343dd0c77cbca93fb6b766b5c9131922405a7e Mon Sep 17 00:00:00 2001
+From 391731c96ff1dbf73fce9438ff6f51e2e4b97e8d Mon Sep 17 00:00:00 2001
 From: Scott Ellis <scott@jumpnowtek.com>
 Date: Fri, 26 Jan 2018 09:52:05 -0500
-Subject: [PATCH 3/3] edm1-cf: Remove references to hdmi and other unused
+Subject: [PATCH 3/7] edm1-cf: Remove references to hdmi and other unused
  displays
 
 ---

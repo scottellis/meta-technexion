@@ -1,14 +1,14 @@
-From e6baa488e321d66c35f61bfd17c509552c7d7758 Mon Sep 17 00:00:00 2001
+From 22fcff1322633e561a6a94cc7d1ceaa7bf04523c Mon Sep 17 00:00:00 2001
 From: Scott Ellis <scott@jumpnowtek.com>
 Date: Fri, 26 Jan 2018 09:36:36 -0500
-Subject: [PATCH 2/3] Search for tnmacro.h in local dir
+Subject: [PATCH 2/7] Search for tnmacro.h in local dir
 
 ---
  arch/arm/boot/dts/baseboard_edm1_fairy.dtsi | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/baseboard_edm1_fairy.dtsi b/arch/arm/boot/dts/baseboard_edm1_fairy.dtsi
-index 13b784a..46d4970 100644
+index 01520cb..0fb0e96 100644
 --- a/arch/arm/boot/dts/baseboard_edm1_fairy.dtsi
 +++ b/arch/arm/boot/dts/baseboard_edm1_fairy.dtsi
 @@ -11,7 +11,7 @@

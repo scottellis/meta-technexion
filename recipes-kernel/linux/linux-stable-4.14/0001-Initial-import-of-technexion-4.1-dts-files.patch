@@ -1,7 +1,7 @@
-From 21bbe0ea6d486b35552d52d1c50362c0d15e4adc Mon Sep 17 00:00:00 2001
+From b840bacab5e94c14c78041955376cd72573e8ef0 Mon Sep 17 00:00:00 2001
 From: Scott Ellis <scott@jumpnowtek.com>
 Date: Fri, 26 Jan 2018 09:35:41 -0500
-Subject: [PATCH 1/3] Initial import of technexion 4.1 dts files
+Subject: [PATCH 1/7] Initial import of technexion 4.1 dts files
 
 ---
  arch/arm/boot/dts/baseboard_edm1_fairy.dtsi | 202 ++++++++
@@ -18,7 +18,7 @@ Subject: [PATCH 1/3] Initial import of technexion 4.1 dts files
 
 diff --git a/arch/arm/boot/dts/baseboard_edm1_fairy.dtsi b/arch/arm/boot/dts/baseboard_edm1_fairy.dtsi
 new file mode 100644
-index 0000000..13b784a
+index 0000000..01520cb
 --- /dev/null
 +++ b/arch/arm/boot/dts/baseboard_edm1_fairy.dtsi
 @@ -0,0 +1,202 @@
@@ -118,7 +118,7 @@ index 0000000..13b784a
 +		reg = <0x38>;
 +#ifdef EDM1_EXT_FT5X06_IOMUX_FAIRY
 +		pinctrl-names = "default";
-+		pinctrl-0 = <EDM1_EXT_FT5X06_IOMUX_FAIRY>; /* Touch IRQ and Touch Reset */        
++		pinctrl-0 = <EDM1_EXT_FT5X06_IOMUX_FAIRY>; /* Touch IRQ and Touch Reset */
 +#endif
 +		interrupt-parent = <&GPIO_BANK(EDM_EXT_GPIO_P261)>; /* GPIO_P261 J1B-261 */
 +		reset-gpios = <&EDM_EXT_GPIO_P264 GPIO_ACTIVE_LOW>; /* GPIO_P264 J1B-264 */
@@ -1135,7 +1135,7 @@ index 0000000..9f0596c
 +};
 diff --git a/arch/arm/boot/dts/tnmacro.h b/arch/arm/boot/dts/tnmacro.h
 new file mode 100644
-index 0000000..7963f1b
+index 0000000..3a3a403
 --- /dev/null
 +++ b/arch/arm/boot/dts/tnmacro.h
 @@ -0,0 +1,62 @@
@@ -1145,32 +1145,32 @@ index 0000000..7963f1b
 +
 +/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 + *
-+ * Dirty Macro hacks for splitting gpio definitions to bank and number 
++ * Dirty Macro hacks for splitting gpio definitions to bank and number
 + *
 + * Copyright 2016 Technexion Ltd.
 + *
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License version 2 as
 + * published by the Free Software Foundation.
-+ *  
++ *
 + * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 +
 + Usage:
 +   Provides macros that can split a gpio definition to bank and number.
 +
 +   Define gpios with bank and number:
-+   
++
 +   #define EDM_GPIO gpio2 11
-+   
++
 +   then this can be defined as gpio with (for example with)
 +
 +   gpio=<&EDM_GPIO 0>;
-+   
++
 +   and as interrupt as
 +
 +   interrupt-parent = < &GPIO_BANK(EDM_GPIO) >;
 +   interrupts = < GPIO_NO(EDM_GPIO) 0 >;
-+   
++
 +*/
 +
 +#define TN_LPAREN (

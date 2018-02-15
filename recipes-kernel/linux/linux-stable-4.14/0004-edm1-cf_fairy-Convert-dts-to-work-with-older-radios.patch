@@ -1,7 +1,7 @@
-From 10a93034695ab3a98cbb1bec1882b56cae7314d8 Mon Sep 17 00:00:00 2001
+From e228cebe3294741aaa0d0b31da9e5a01e6e7a370 Mon Sep 17 00:00:00 2001
 From: Scott Ellis <scott@jumpnowtek.com>
 Date: Thu, 1 Feb 2018 14:08:44 -0500
-Subject: [PATCH 4/4] edm1-cf_fairy: Convert dts to work with older radios
+Subject: [PATCH 4/7] edm1-cf_fairy: Convert dts to work with older radios
 
 ---
  arch/arm/boot/dts/imx6qdl-edm1-cf.dtsi | 51 +++++++++++++++++-----------------
