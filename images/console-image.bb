@@ -16,6 +16,7 @@ CORE_OS = " \
 
 KERNEL_EXTRA_INSTALL = " \
     kernel-modules \
+    load-modules \
 "
 
 WIFI_SUPPORT = " \
@@ -67,7 +68,6 @@ EXTRA_TOOLS_INSTALL = " \
     iproute2 \
     iptables \
     less \
-    memtester \
     nano \
     netcat \
     procps \
