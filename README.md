@@ -2,7 +2,7 @@ This layer depends on:
 
     URI: git://git.yoctoproject.org/poky.git
     branch: rocko
-    commit: 21ba45a
+    commit: 50189fd
 
     URI: git://git.openembedded.org/meta-openembedded
     branch: rocko
@@ -14,5 +14,5 @@ If using mender
     branch: rocko
     revision: HEAD
     commit: b1962c3
-    
+
 meta-technexion layer maintainer: Scott Ellis <scott@jumpnowtek.com>
