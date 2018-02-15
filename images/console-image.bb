@@ -19,12 +19,10 @@ KERNEL_EXTRA_INSTALL = " \
 "
 
 WIFI_SUPPORT = " \
-    bcm4329-nvram-config \
-    bcm4330-nvram-config \
     crda \
     firmware-bcmdhd \
+    firmware-legacy \
     iw \
-    linux-firmware-bcm43430 \
     rfkill \
     wireless-tools \
     wpa-supplicant \
