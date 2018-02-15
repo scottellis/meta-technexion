@@ -1,0 +1,31 @@
+From 6229e64313b18f89ff0011c840f15c4e6ca198cd Mon Sep 17 00:00:00 2001
+From: Scott Ellis <scott@jumpnowtek.com>
+Date: Thu, 15 Feb 2018 10:19:56 -0500
+Subject: [PATCH 2/2] Expand findfdt to detect PMIC boards
+
+---
+ include/configs/edm-cf-imx6.h | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+
+diff --git a/include/configs/edm-cf-imx6.h b/include/configs/edm-cf-imx6.h
+index 3852833..3674196 100644
+--- a/include/configs/edm-cf-imx6.h
++++ b/include/configs/edm-cf-imx6.h
+@@ -117,13 +117,7 @@
+ 	"fdt_addr_r=0x18000000\0" \
+ 	"fdt_addr=0x18000000\0" \
+ 	"mmcdev=" __stringify(CONFIG_SYS_MMC_ENV_DEV) "\0" \
+-	"findfdt="\
+-		"if test $board_rev = MX6Q ; then " \
+-			"setenv fdtfile imx6q-edm1-cf_fairy.dtb; fi; " \
+-		"if test $board_rev = MX6DL ; then " \
+-			"setenv fdtfile imx6dl-edm1-cf_fairy.dtb; fi; " \
+-		"if test $fdtfile = undefined; then " \
+-			"echo WARNING: Could not determine dtb to use; fi; \0" \
++	"findfdt=setenv fdtfile ${board_name}_fairy.dtb\0" \
+ 	"kernel_addr_r=" __stringify(CONFIG_LOADADDR) "\0" \
+ 	"scriptaddr=" __stringify(CONFIG_LOADADDR) "\0" \
+ 	BOOTENV
+-- 
+2.7.4
+

@@ -1,7 +1,7 @@
 From 2805f2cde454b87cc01494687d95449e6624f685 Mon Sep 17 00:00:00 2001
 From: Scott Ellis <scott@jumpnowtek.com>
 Date: Fri, 26 Jan 2018 15:43:42 -0500
-Subject: [PATCH] Integrate EDM-CF-IMX6 board files
+Subject: [PATCH 1/2] Integrate EDM-CF-IMX6 board files
 
 ---
  arch/arm/include/asm/arch-mx6/imx-regs.h       |   3 +
