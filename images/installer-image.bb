@@ -7,6 +7,7 @@ inherit core-image
 
 IMAGE_INSTALL += " \
     emmc-installer \
+    kernel-modules \
     u-boot-scr \
 "
 
