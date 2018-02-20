@@ -1,8 +1,8 @@
 #!/bin/bash
 
-MACHINE=wandboard
-HOSTNAME=wand
-DSTDIR=~/wandboard/upload
+MACHINE=edm1-cf-imx6
+HOSTNAME=${MACHINE}
+DSTDIR=~/technexion/upload
 IMG=console
 IMG_LONG="${IMG}-image-${MACHINE}"
 
@@ -38,7 +38,7 @@ if [ ! -f "${SRCDIR}/${IMG_LONG}.tar.xz" ]; then
 	exit 1
 fi
 
-SDIMG=wand-${IMG}-${CARDSIZE}gb.img
+SDIMG=${IMG}-${CARDSIZE}gb.img
 
 if [ -f "${DSTDIR}/${SDIMG}" ]; then
 	rm ${DSTDIR}/${SDIMG}

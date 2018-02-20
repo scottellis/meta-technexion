@@ -161,8 +161,8 @@ fi
 echo "***** Detatching loop device *****"
 sudo losetup -D
 
-echo "Skipping compression"
-exit 1
+#echo "Skipping compression"
+#exit 1
 
 echo "***** Compressing the SD card image *****"
 sudo xz -9 ${dstdir}/${sdimg}

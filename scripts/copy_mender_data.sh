@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MACHINE=wandboard
+MACHINE=edm1-cf-imx6
 
 if [ ! -d /media/card ]; then
     echo "Temporary mount point [/media/card] not found"
