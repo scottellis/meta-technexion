@@ -22,7 +22,7 @@ total 12
 
 The public key gets copied to
 
-  meta-wandboard/recipes-mender/mender/files/artifact-verify-key.pem
+  meta-technexion/recipes-mender/mender/files/artifact-verify-key.pem
 
 to be installed on the devices.
 
@@ -30,4 +30,4 @@ The private key is used to sign the artifacts with the mender-artifact tool.
 
 See the script
 
-  meta-wandboard/scripts/sign-mender-image.sh
+  meta-technexion/scripts/sign-mender-image.sh
