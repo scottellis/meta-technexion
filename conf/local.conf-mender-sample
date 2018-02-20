@@ -1,4 +1,4 @@
-# Local configuration for meta-wandboard images
+# Local configuration for meta-technexion images
 # Yocto Project 2.4 Poky distribution [rocko] branch
 # This is a sysvinit system
 
@@ -7,25 +7,24 @@ LICENSE_FLAGS_WHITELIST = "commercial"
 DISTRO_FEATURES = "ext2 usbhost ${DISTRO_FEATURES_LIBC}"
 
 DISTRO_FEATURES_BACKFILL_CONSIDERED += "pulseaudio opengl"
-
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 
 PREFERRED_PROVIDER_udev = "eudev"
 
-MACHINE = "wandboard"
-KERNEL_DEVICETREE = "imx6q-wandboard-revb1.dtb"
+MACHINE = "edm1-cf-imx6"
+KERNEL_DEVICETREE = " \
+    imx6dl-edm1-cf_fairy.dtb \
+    imx6dl-edm1-cf-pmic_fairy.dtb \
+    imx6q-edm1-cf_fairy.dtb \
+    imx6q-edm1-cf-pmic_fairy.dtb \
+"
 
 #DL_DIR = "${HOME}/oe-sources"
-
-#SSTATE_DIR = "/oe9/wandm/sstate-cache"
-
-#TMPDIR = "/oe9/wandm/tmp-rocko"
+#SSTATE_DIR = "/oe6/tn-mender/sstate-cache"
+#TMPDIR = "/oe6/tn-mender/tmp-rocko"
 
 DISTRO = "poky"
-
 PACKAGE_CLASSES = "package_ipk"
-
-# i686 or x86_64
 SDKMACHINE = "x86_64"
 
 #EXTRA_IMAGE_FEATURES = "debug-tweaks"
@@ -33,17 +32,13 @@ INHERIT += "extrausers"
 EXTRA_USERS_PARAMS = "usermod -P jumpnowtek root; "
 
 USER_CLASSES = "image-mklibs image-prelink"
-
 PATCHRESOLVE = "noop"
-
-INHERIT += "rm_work"
-
 RM_OLD_IMAGE = "1"
-
+INHERIT += "rm_work"
 CONF_VERSION = "1"
 
 # mender stuff
-MENDER_ARTIFACT_NAME = "wandq-1"
+MENDER_ARTIFACT_NAME = "tn-t1"
 INHERIT += "mender-image mender-install mender-uboot"
 MENDER_SERVER_URL = "https://fractal.jumpnow"
 
